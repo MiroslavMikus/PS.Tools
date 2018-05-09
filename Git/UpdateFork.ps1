@@ -45,3 +45,5 @@ git merge origin/$upstreamName
 
 # push changes to your fork
 git push
+
+Read-Host -Prompt "Done - Press Enter to exit"
