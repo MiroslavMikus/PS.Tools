@@ -10,9 +10,9 @@ param([Parameter(Mandatory=$true)][string]$searchDir,
 # test input
 # $outputDir="C:\Users\miros\OneDrive\Automation\PS"
 # $outputDir=""
-# $searchDir="F:\Projects\_GitHub"
+# $searchDir="C:\Users\miros\OneDrive\Automation\PS"
 
-if(!Test-Path $searchDir){
+if(!(Test-Path $searchDir)){
     return;
 }
 
@@ -25,7 +25,7 @@ else{
     $outputDir = Get-Item -Path $outputDir -Verbose # change path to object
 }
 
-$logFile = $outputDir.FullName + "\GitRemoteList_" + $searchDir.Name + ".txt"
+$logFile = $outputDir.FullName + "\_GitRemoteList" + $searchDir.Name + ".txt"
 
 if(Test-Path $logFile){
     Remove-Item $logFile
@@ -43,3 +43,7 @@ foreach($folder in $folders)
 
     git config --get remote.origin.url | Out-File $logFile -Append
 }
+
+Start-Process $logFile
+
+Read-Host -Prompt "Done - Press Enter to exit"
