@@ -5,7 +5,8 @@
 # 
 
 param([Parameter(Mandatory=$true)][string]$searchDir,
-      [Parameter(Mandatory=$false)][string]$outputDir)
+      [Parameter(Mandatory=$false)][string]$outputDir,
+      [Parameter(Mandatory=$false)][bool]$addHeader = $true)
 
 # test input
 # $outputDir="C:\Users\miros\OneDrive\Automation\PS"
@@ -28,7 +29,7 @@ $outputDirObject = Get-Item -Path $outputDir -Verbose # change path to object
 
 Write-Host "Output directory: $outputDirObject"
 
-$logFile = "$($outputDirObject.FullName)\_GitRemoteList.txt"
+$logFile = "$($outputDirObject.FullName)\_GitRemoteList_$($searchDirObject.Name).txt"
 
 Write-Host "Path to log file: $logFile"
 
@@ -39,11 +40,15 @@ if(Test-Path $logFile){
     Write-Host "Old log file was deleted: $logFile"
 }
 
-Get-Date | Out-File $logFile
+if($addHeader){
 
-Write-Host "Log file was created: $logFile"
+    "# " + (Get-Date) | Out-File $logFile -Append
 
-"Root dir: $($searchDirObject.FullName)" | Out-File $logFile -Append
+    Write-Host "Log file was created: $logFile"
+
+    "# Root dir: $($searchDirObject.FullName)" | Out-File $logFile -Append
+}    
+
 
 $folders = Get-ChildItem -Path $searchDirObject.FullName | Where-Object{ $_.PSIsContainer }
 
