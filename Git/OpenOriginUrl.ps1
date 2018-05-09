@@ -26,14 +26,17 @@ $localRemote = (git remote -v)
 
 $link = SearchLink($localRemote[0]);
 
-Write-Host "Opening: $link";
 
 if ($browser -eq ""){
+    
+    Write-Host "Opening: $link";
 
     Start-Process $link
 }
 else{
 
+    Write-Host "Opening with $browser: $link";
+    
     Start-Process -FilePath $browser -ArgumentList $link
 }
 
