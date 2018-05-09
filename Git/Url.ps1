@@ -16,26 +16,36 @@ if(!(Test-Path $searchDir)){
     return;
 }
 
-$searchDir = Get-Item -Path $searchDir -Verbose # change path to object
+Write-Host "Root directory: $searchDir"
+
+$searchDirObject = Get-Item -Path $searchDir -Verbose # change path to object
 
 if($outputDir -eq ""){
     $outputDir = $searchDir
 }
-else{
-    $outputDir = Get-Item -Path $outputDir -Verbose # change path to object
-}
 
-$logFile = $outputDir.FullName + "\_GitRemoteList" + $searchDir.Name + ".txt"
+$outputDirObject = Get-Item -Path $outputDir -Verbose # change path to object
+
+Write-Host "Output directory: $outputDirObject"
+
+$logFile = "$($outputDirObject.FullName)\_GitRemoteList.txt"
+
+Write-Host "Path to log file: $logFile"
 
 if(Test-Path $logFile){
+
     Remove-Item $logFile
+
+    Write-Host "Old log file was deleted: $logFile"
 }
 
 Get-Date | Out-File $logFile
 
-"Root dir: " + $searchDir.FullName | Out-File $logFile -Append
+Write-Host "Log file was created: $logFile"
 
-$folders = Get-ChildItem -Path $searchDir.FullName | Where-Object{ $_.PSIsContainer }
+"Root dir: $($searchDirObject.FullName)" | Out-File $logFile -Append
+
+$folders = Get-ChildItem -Path $searchDirObject.FullName | Where-Object{ $_.PSIsContainer }
 
 foreach($folder in $folders)
 {
