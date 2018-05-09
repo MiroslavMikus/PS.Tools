@@ -4,19 +4,11 @@
 # and open it in selected browser
 # 
 
-param([Parameter(Mandatory=$false)][string]$browser)
+param([Parameter(Mandatory=$true)][string]$root,
+      [Parameter(Mandatory=$false)][string]$browser)
 
-
-$localRemote = (git remote -v)
-
-$link = SearchLink($localRemote[0]);
-
-if ($browser -eq ""){
-
-    Start-Process -FilePath $browser -ArgumentList $link
-}
-else{
-    Start-Process $link
+if($root -eq ""){
+    return;
 }
 
 function SearchLink ([string]$data) {
@@ -27,3 +19,26 @@ function SearchLink ([string]$data) {
     
     return $data.Substring($startPosition, $endPosition - $startPosition);
 }
+
+Set-Location $root
+
+$localRemote = (git remote -v)
+
+$link = SearchLink($localRemote[0]);
+
+Write-Host "Opening: $link";
+
+if ($browser -eq ""){
+
+    Start-Process $link
+}
+else{
+
+    Start-Process -FilePath $browser -ArgumentList $link
+}
+
+Write-Host "Script will end in 3 sec";
+
+Start-Sleep -s 3
+
+# Read-Host -Prompt "Done - Press Enter to exit"
