@@ -35,7 +35,7 @@ if ($browser -eq ""){
 }
 else{
 
-    Write-Host "Opening with $browser: $link";
+    Write-Host "Opening with $browser : $link";
     
     Start-Process -FilePath $browser -ArgumentList $link
 }
@@ -44,4 +44,4 @@ Write-Host "Script will end in 3 sec";
 
 Start-Sleep -s 3
 
-# Read-Host -Prompt "Done - Press Enter to exit"
+#Read-Host -Prompt "Done - Press Enter to exit"
