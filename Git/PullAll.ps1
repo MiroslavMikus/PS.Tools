@@ -10,6 +10,10 @@ param([string]$root)
 
 if ($root -eq "") 
 {
+    Write-Host "Root cannot be empty!"
+    
+    Read-Host -Prompt "Script will exit"
+    
     return;
 }
 
