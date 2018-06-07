@@ -15,6 +15,12 @@ if($root -eq ""){
 
 Set-Location $root
 
+Write-Host "###### EMAIL"
+
+git config user.email
+
+Write-Host "###### STATUS"
+
 git status
 
 Write-Host "######"
