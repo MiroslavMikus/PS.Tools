@@ -6,22 +6,29 @@
 
 param([string]$root)
 
+#region import logger
+$scriptPath = (split-path $MyInvocation.MyCommand.Path);
+$scriptParent = (get-item $scriptPath).Parent.FullName
+$loggerPath = $scriptParent + "\Shared\Logger.ps1";
+$logPath = "$scriptPath\Log\$($MyInvocation.MyCommand.Name).log";
+. $loggerPath;
+#endregion
+
 if($root -eq ""){
-
-    Read-Host -Prompt "Root parameter is missing - Press Enter to exit"
-
+    
+    Write-log "Root parameter is missing" -Path $logPath -Level Error
+    
+    Read-Host -Prompt "Press Enter to exit"
+    
     return;
 }
 
+Write-log "Starting with repositor folder: $root" -Path $logPath 
+
 Set-Location $root
 
-Write-Host "###### EMAIL"
-
-git config user.email
-
-Write-Host "###### STATUS"
-
-git status
+Write-log "Email $(git config user.email)" -Path $logPath 
+Write-log "Status $(git status)" -Path $logPath 
 
 Write-Host "######"
 Write-Host "Git add -A; commit; push is following"
