@@ -5,22 +5,30 @@
 
 param([string]$root)
 
-if ($root -eq "") 
-{
-    Write-Host "Root cannot be empty!"
+#region import logger
+$scriptPath = (split-path $MyInvocation.MyCommand.Path);
+$scriptParent = (get-item $scriptPath).Parent.FullName
+$loggerPath = $scriptParent + "\Shared\Logger.ps1";
+$logPath = "$scriptPath\Log\$($MyInvocation.MyCommand.Name).log";
+. $loggerPath;
+#endregion
+
+if($root -eq ""){
     
-    Read-Host -Prompt "Script will exit"
+    Write-log "Root parameter is missing" -Path $logPath -Level Error
+    
+    Read-Host -Prompt "Press Enter to exit"
     
     return;
 }
 
 $clip = get-clipboard;
 
-Write-Host "Clip: $clip"
+Write-log "Clip: $clip" -Path $logPath 
 
 Set-Location $root;
 
-Write-Host "Run: git clone $clip"
+Write-log "Run: git clone $clip" -Path $logPath 
 
 git clone $clip
 
