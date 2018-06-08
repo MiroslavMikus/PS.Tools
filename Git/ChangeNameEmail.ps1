@@ -61,7 +61,7 @@ if(!$userEmail -eq ""){
 
         git config user.email $userEmail
     
-        Write-log "User email changed from $oldName to $userEmail" -Path $logPath 
+        Write-log "User email changed from $oldEmail to $userEmail" -Path $logPath 
     }
 
 }
