@@ -19,4 +19,4 @@ Feel free to add issue/idea/feedback.
 
 |Script name|Description|Parameters|
 |-|-|-|
-|[Logger](Shared/Logger.ps1)|Simple console and file logger|**Message**: Message is the content that you wish to add to the log file., **Path**: The path to the log file to which you would like to write. By default the function will create the path and file if it does not exist. **Level**: Specify the criticality of the log information being written to the log (i.e. Error, Warning, Informational)|
+|[Logger](Shared/Logger.ps1) Credit to [Jason Wasser](https://gallery.technet.microsoft.com/scriptcenter/Write-Log-PowerShell-999c32d0) |Simple console and file logger|**Message**: Message is the content that you wish to add to the log file., **Path**: The path to the log file to which you would like to write. By default the function will create the path and file if it does not exist. **Level**: Specify the criticality of the log information being written to the log (i.e. Error, Warning, Informational)|
