@@ -8,10 +8,19 @@ param([string]$root)
 #test
 #$root = "C:\S";
 
+# import logger
+$scriptPath = (split-path $MyInvocation.MyCommand.Path);
+$scriptParent = (get-item $scriptPath).Parent.FullName
+$loggerPath = $scriptParent + "\Shared\Logger.ps1";
+$logPath = "$scriptPath\Log\$($MyInvocation.MyCommand.Name).log";
+. $loggerPath;
+
+Write-log "Starting with root: $root" -Path $logPath 
+    
 if ($root -eq "") 
 {
-    Write-Host "Root cannot be empty!"
-    
+    Write-log "Root cannot be empty!" -Path $logPath -Level Error
+
     Read-Host -Prompt "Script will exit"
     
     return;
@@ -35,11 +44,13 @@ foreach ($d in $dir)
 
     Write-Progress -Activity "Pull in all folders" -Status "$currentProgress% Complete:" -PercentComplete $currentProgress;
 
-    Write-Host ("###### git pull --all -> " + $d.FullName);
+    Write-log "git pull --all -> $($d.FullName)" -Path $logPath 
 
     Set-Location $d.FullName;
 
     git pull --all
 }
+
+Write-log "Done" -Path $logPath 
 
 Read-Host -Prompt "Done - Press Enter to exit"
