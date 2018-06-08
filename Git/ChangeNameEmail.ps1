@@ -13,7 +13,7 @@ $logPath = "$scriptPath\Log\$($MyInvocation.MyCommand.Name).log";
 . $loggerPath;
 #endregion
 
-Write-log "Starting with root: $root" -Path $logPath 
+Write-log "Starting with repositor folder: $root" -Path $logPath 
     
 if($root -eq ""){
 
@@ -35,20 +35,35 @@ if(($userName -eq "") -and ($userEmail -eq "")){
 
 $oldName = git config user.name
 
-if(!$userName -eq "" -and !$userName -eq $oldName){
+if(!$userName -eq ""){
 
-    git config user.name $userName
+    if($userName -eq $oldName){
 
-    Write-log "User name changed from $oldName to $userName" -Path $logPath 
+        Write-log "User name is the same. Name will be not changed. The current value is $oldName" -Path $logPath -Level Error
+
+    }else{
+
+        git config user.name $userName
+
+        Write-log "User name changed from $oldName to $userName" -Path $logPath 
+    }
 }
 
 $oldEmail = git config user.email
 
-if(!$userEmail -eq "" -and !$userEmail -eq $oldEmail){
+if(!$userEmail -eq ""){
 
-    git config user.email $userName
+    if($userEmail -eq $oldEmail){
 
-    Write-log "User email changed from $oldName to $userEmail" -Path $logPath 
+        Write-log "User email is the same. Email will be not changed. The current value is $oldEmail" -Path $logPath -Level Error
+
+    } else {
+
+        git config user.email $userEmail
+    
+        Write-log "User email changed from $oldName to $userEmail" -Path $logPath 
+    }
+
 }
 
 Read-Host -Prompt "Done - Press Enter to exit"
