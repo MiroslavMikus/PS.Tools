@@ -8,12 +8,13 @@ param([string]$root)
 #test
 #$root = "C:\S";
 
-# import logger
+#region import logger
 $scriptPath = (split-path $MyInvocation.MyCommand.Path);
 $scriptParent = (get-item $scriptPath).Parent.FullName
 $loggerPath = $scriptParent + "\Shared\Logger.ps1";
 $logPath = "$scriptPath\Log\$($MyInvocation.MyCommand.Name).log";
 . $loggerPath;
+#endregion
 
 Write-log "Starting with root: $root" -Path $logPath 
     
