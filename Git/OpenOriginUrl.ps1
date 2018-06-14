@@ -5,7 +5,8 @@
 # 
 
 param([Parameter(Mandatory=$true)][string]$root,
-      [Parameter(Mandatory=$false)][string]$browser)
+      [Parameter(Mandatory=$false)][string]$browser,
+      [Parameter(Mandatory=$false)][string]$addToUrl)
 
 #region import logger
 $scriptPath = (split-path $MyInvocation.MyCommand.Path);
@@ -42,15 +43,15 @@ $link = SearchLink($localRemote[0]);
 
 if ($browser -eq ""){
     
-    Write-log "Opening: $link" -Path $logPath 
+    Write-log "Opening: $link$addToUrl" -Path $logPath 
 
-    Start-Process $link
+    Start-Process $link$addToUrl
 }
 else{
 
-    Write-log "Opening with $browser : $link" -Path $logPath 
+    Write-log "Opening with $browser : $link$addToUrl" -Path $logPath 
     
-    Start-Process -FilePath $browser -ArgumentList $link
+    Start-Process -FilePath $browser -ArgumentList $link$addToUrl
 }
 
 Write-Host "Script will end in 3 sec";
