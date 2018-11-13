@@ -14,3 +14,7 @@ function Get-LogPaht {
     
     return "$path\$ScriptName.log"
 }
+
+function Open-DefaultLogPath{
+    explorer.exe "$([Environment]::GetFolderPath('CommonApplicationData'))\PowershellLogs"
+}

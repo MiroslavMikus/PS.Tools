@@ -16,21 +16,21 @@ function Git-AutoPush {
 
     $logPath = Get-LogPaht "Git-AutoPush";
     
-    Write-log "Starting with repositor folder: $rootFolder" -Path $logPath 
+    Write-log "Starting with repositor folder: $rootFolder" -Path $logPath;
     
-    Set-Location $rootFolder
+    Set-Location $rootFolder;
     
-    Write-log "Email $(git config user.email)" -Path $logPath 
-    Write-log "Status $(git status)" -Path $logPath 
+    Write-log "Email $(git config user.email)" -Path $logPath;
+    Write-log "Status $(git status)" -Path $logPath;
     
-    Write-Host "######"
-    Write-Host "Git add -A; commit; push is following"
-    Write-Host "######"
+    Write-Host "######";
+    Write-Host "Git add -A; commit; push is following";
+    Write-Host "######";
     
     # let the user enter the commit message
     if ($commitMessage -eq "") {
 
-        $commitMessage = Read-Host -Prompt "Enter Commit message:"
+        $commitMessage = Read-Host -Prompt "Enter Commit message";
         
         # break execution if is the message empty
         if ($commitMessage -eq "") {
