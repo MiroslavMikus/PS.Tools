@@ -8,17 +8,17 @@
 function Git-CommitPush {
 
     param(
-        [string]$commitMessage,
+        [string]$CommitMessage,
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()] 
-        [string]$rootFolder
+        [string]$RootFolder
         )
 
     $logPath = Get-LogPaht "Git-AutoPush";
     
-    Write-log "Starting with repositor folder: $rootFolder" -Path $logPath;
+    Write-log "Starting with repositor folder: $RootFolder" -Path $logPath;
     
-    Set-Location $rootFolder;
+    Set-Location $RootFolder;
     
     Write-log "Email $(git config user.email)" -Path $logPath;
     Write-log "Status $(git status)" -Path $logPath;
@@ -28,19 +28,19 @@ function Git-CommitPush {
     Write-Host "######";
     
     # let the user enter the commit message
-    if ($commitMessage -eq "") {
+    if ($CommitMessage -eq "") {
 
-        $commitMessage = Read-Host -Prompt "Enter Commit message";
+        $CommitMessage = Read-Host -Prompt "Enter Commit message";
         
         # break execution if is the message empty
-        if ($commitMessage -eq "") {
+        if ($CommitMessage -eq "") {
             return;
         }
     }
     
     git add -A
     
-    git commit -m "$commitMessage"
+    git commit -m "$CommitMessage"
     
     git push
 }

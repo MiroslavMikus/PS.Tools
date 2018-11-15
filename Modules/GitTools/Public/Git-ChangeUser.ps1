@@ -8,14 +8,14 @@ function Git-ChangeUser {
         [string]$RepositoryDirectory, 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()] 
-        [string]$userName, 
+        [string]$UserName, 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()] 
-        [string]$userEmail,
-        [switch]$global
+        [string]$UserEmail,
+        [switch]$Global
     )
 
-    if ($global){
+    if ($Global){
 
         Write-log "Updating global settings" -Path $logPath 
 
@@ -42,28 +42,28 @@ function Git-ChangeUser {
     
     $oldName = git config $globalSwitch user.name
     
-    if($userName -eq $oldName) {
+    if($UserName -eq $oldName) {
 
         Write-log "User name is the same. Name will be not changed. The current value is $oldName" -Path $logPath -Level Error
 
     } else {
 
-        git config $globalSwitch user.name $userName 
+        git config $globalSwitch user.name $UserName 
 
-        Write-log "User name changed from $oldName to $userName" -Path $logPath 
+        Write-log "User name changed from $oldName to $UserName" -Path $logPath 
     }
 
     $oldEmail = git config $globalSwitch user.email 
 
-    if($userEmail -eq $oldEmail) {
+    if($UserEmail -eq $oldEmail) {
     
         Write-log "User email is the same. Email will be not changed. The current value is $oldEmail" -Path $logPath -Level Error
     
     } else {
     
-        git config $globalSwitch user.email $userEmail
+        git config $globalSwitch user.email $UserEmail
     
-        Write-log "User email changed from $oldEmail to $userEmail" -Path $logPath 
+        Write-log "User email changed from $oldEmail to $UserEmail" -Path $logPath 
     }
 
     Read-Host -Prompt "Done - Press Enter to exit"
