@@ -11,7 +11,7 @@ function Git-CloneClip {
         [switch]$UseSleep = $false
     )
 
-    $logPath = Get-LogPaht "Git-AutoPush";
+    $logPath = Get-LogPaht "Git-CloneClip";
 
     $clip = get-clipboard;
     

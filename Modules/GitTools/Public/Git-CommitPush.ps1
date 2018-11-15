@@ -14,7 +14,7 @@ function Git-CommitPush {
         [string]$RootFolder
         )
 
-    $logPath = Get-LogPaht "Git-AutoPush";
+    $logPath = Get-LogPaht "Git-CommitPush";
     
     Write-log "Starting with repositor folder: $RootFolder" -Path $logPath;
     

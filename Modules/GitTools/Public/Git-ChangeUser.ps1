@@ -15,6 +15,8 @@ function Git-ChangeUser {
         [switch]$Global
     )
 
+    $logPath = Get-LogPaht "Git-ChangeUser";
+
     if ($Global){
 
         Write-log "Updating global settings" -Path $logPath 
@@ -26,8 +28,6 @@ function Git-ChangeUser {
 
         $globalSwitch = "";
     }
-
-    $logPath = Get-LogPaht "Git-AutoPush";
 
     if($RepositoryDirectory -eq ""){
     
