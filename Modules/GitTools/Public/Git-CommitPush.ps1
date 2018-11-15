@@ -5,7 +5,7 @@
 # 
 
 # Requires -Modules SimpleLogger
-function Git-AutoPush {
+function Git-CommitPush {
 
     param(
         [string]$commitMessage,
