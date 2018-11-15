@@ -3,3 +3,6 @@ ChangeNameEmail -> done
 CloneClipboard -> done
 OpenOriginUrl -> done
 PullAll -> done
+
+UpdateFork ->  legacy
+UpdateMaster -> Legacy
