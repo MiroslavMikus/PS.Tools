@@ -6,13 +6,13 @@
 function Git-OpenOriginUrl {
     param (
             [Parameter(Mandatory=$true)]
+            [ValidateNotNullOrEmpty()]  
             [string]$RepositoryDirectory,
-            [Parameter(Mandatory=$false)]
             [string]$Browser,
-            [Parameter(Mandatory=$false)]
             [switch]$UseSleep = $false,
             [switch]$WhatIf
     )
+
     $logPath = Get-LogPaht "Git-OpenOriginUrl";
 
     Set-Location $RepositoryDirectory

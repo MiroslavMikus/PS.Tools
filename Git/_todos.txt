@@ -2,3 +2,4 @@ autopush -> done
 ChangeNameEmail -> done
 CloneClipboard -> done
 OpenOriginUrl -> done
+PullAll -> done
