@@ -4,9 +4,9 @@
 # and creates list git remote URL's.
 # 
 
-param([Parameter(Mandatory=$true)][string]$searchDir,
-      [Parameter(Mandatory=$false)][string]$outputDir,
-      [Parameter(Mandatory=$false)][bool]$addHeader = $true)
+param([Parameter(MandaStory = $true)][string]$searchDir,
+    [Parameter(Mandatory = $false)][string]$outputDir,
+    [Parameter(Mandatory = $false)][bool]$addHeader = $true)
 
 #region import logger
 $scriptPath = (split-path $MyInvocation.MyCommand.Path);
@@ -21,7 +21,7 @@ $logPath = "$scriptPath\Log\$($MyInvocation.MyCommand.Name).log";
 # $outputDir=""
 # $searchDir="C:\Users\miros\OneDrive\Automation\PS"
 
-if(!(Test-Path $searchDir)){
+if (!(Test-Path $searchDir)) {
 
     Write-log "Search directory doesnt exist: $searchDir" -Path $logPath -Level Error
     
@@ -34,7 +34,7 @@ Write-log "Search directory: $searchDir" -Path $logPath
 
 $searchDirObject = Get-Item -Path $searchDir -Verbose # change path to object
 
-if($outputDir -eq ""){
+if ($outputDir -eq "") {
     $outputDir = $searchDir
 }
 
@@ -46,14 +46,14 @@ $logFile = "$($outputDirObject.FullName)\_GitRemoteList_$($searchDirObject.Name)
 
 Write-log "Path to log file: $logFile" -Path $logPath
 
-if(Test-Path $logFile){
+if (Test-Path $logFile) {
 
     Remove-Item $logFile
 
     Write-log "Old log file was deleted: $logFile" -Path $logPath -Level Warn
 }
 
-if($addHeader){
+if ($addHeader) {
 
     "# " + (Get-Date) | Out-File $logFile -Append
 
@@ -62,10 +62,9 @@ if($addHeader){
     "# Root dir: $($searchDirObject.FullName)" | Out-File $logFile -Append
 }    
 
-$folders = Get-ChildItem -Path $searchDirObject.FullName | Where-Object{ $_.PSIsContainer }
+$folders = Get-ChildItem -Path $searchDirObject.FullName | Where-Object { $_.PSIsContainer }
 
-foreach($folder in $folders)
-{
+foreach ($folder in $folders) {
     Set-Location $folder.FullName
 
     git config --get remote.origin.url | Out-File $logFile -Append

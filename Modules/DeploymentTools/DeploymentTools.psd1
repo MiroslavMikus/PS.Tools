@@ -9,24 +9,24 @@
 @{
 
     # Die diesem Manifest zugeordnete Skript- oder Binärmoduldatei.
-    RootModule = '.\DeploymentTools.psm1'
+    RootModule        = '.\DeploymentTools.psm1'
     
     # Die Versionsnummer dieses Moduls
-    ModuleVersion = '1.0'
+    ModuleVersion     = '1.0'
     
     # Unterstützte PSEditions
     # CompatiblePSEditions = @()
     # ID zur eindeutigen Kennzeichnung dieses Moduls
-    GUID = 'e5f22ec2-a677-47db-9063-7cfebd1610a5'
+    GUID              = 'e5f22ec2-a677-47db-9063-7cfebd1610a5'
     
     # Autor dieses Moduls
-    Author = 'Miroslav Mikus'
+    Author            = 'Miroslav Mikus'
     
     # Unternehmen oder Hersteller dieses Moduls
-    CompanyName = 'Unbekannt'
+    CompanyName       = 'Unbekannt'
     
     # Urheberrechtserklärung für dieses Modul
-    Copyright = '(c) 2018 Miroslav Mikus. Alle Rechte vorbehalten.'
+    Copyright         = '(c) 2018 Miroslav Mikus. Alle Rechte vorbehalten.'
     
     # Beschreibung der von diesem Modul bereitgestellten Funktionen
     # Description = ''
@@ -50,7 +50,7 @@
     # ProcessorArchitecture = ''
     
     # Die Module, die vor dem Importieren dieses Moduls in die globale Umgebung geladen werden müssen
-    RequiredModules = @('SimpleLogger')
+    RequiredModules   = @('SimpleLogger')
     
     # Die Assemblys, die vor dem Importieren dieses Moduls geladen werden müssen
     # RequiredAssemblies = @()
@@ -68,16 +68,16 @@
     # NestedModules = @()
     
     # Aus diesem Modul zu exportierende Funktionen. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und löschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Funktionen vorhanden sind.
-    FunctionsToExport = @('Copy-Array')
+    FunctionsToExport = @('Copy-Array', 'Compress-ArchiveExtended', 'Get-IgnoreFile')
     
     # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und löschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.
-    CmdletsToExport = '*'
+    CmdletsToExport   = '*'
     
     # Die aus diesem Modul zu exportierenden Variablen
     VariablesToExport = '*'
     
     # Aus diesem Modul zu exportierende Aliase. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und löschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Aliase vorhanden sind.
-    AliasesToExport = '*'
+    AliasesToExport   = '*'
     
     # Aus diesem Modul zu exportierende DSC-Ressourcen
     # DscResourcesToExport = @()
@@ -89,7 +89,7 @@
     # FileList = @()
     
     # Die privaten Daten, die an das in "RootModule/ModuleToProcess" angegebene Modul übergeben werden sollen. Diese können auch eine PSData-Hashtabelle mit zusätzlichen von PowerShell verwendeten Modulmetadaten enthalten.
-    PrivateData = @{
+    PrivateData       = @{
     
         PSData = @{
     
@@ -118,6 +118,6 @@
     # Standardpräfix für Befehle, die aus diesem Modul exportiert werden. Das Standardpräfix kann mit "Import-Module -Prefix" überschrieben werden.
     # DefaultCommandPrefix = ''
     
-    }
+}
     
     
