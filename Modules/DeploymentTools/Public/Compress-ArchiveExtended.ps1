@@ -1,6 +1,3 @@
-Remove-Item $ZipFileResult
-Compress-ArchiveExtended -Path $YourDirToCompress -DestinationPath $ZipFileResult
-
 function Compress-ArchiveExtended {
     param (
         [string]$Path,
