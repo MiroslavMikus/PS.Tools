@@ -1,17 +1,19 @@
 function Copy-Array {
     param (
-        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
-        [string[]]
-        $Sources,
-        [Parameter(Mandatory=$true)]
-        [string]
-        $Destination
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, Position = 0)]
+        [string[]]$Sources,
+        [Parameter(Mandatory = $true, Position = 1)]
+        [string]$Destination,
+        [Parameter(Position = 2)]
+        [switch]$UseIgnoreFile = $false,
+        [Parameter(Position = 2)]
+        [string[]]$IgnoreFilter = @(),
+        [switch]$WhatIf
     )
     
     try {
         # check if path exist -> if not create one
-        if (!(test-path $Destination))
-        {
+        if (!(test-path $Destination)) {
             Write-Host "Creating destination folder: $Destination";
             
             New-Item -ItemType Directory -Path $Destination;
@@ -22,7 +24,20 @@ function Copy-Array {
     }
 
     try {
-        $Sources | ForEach-Object { Copy-Item -Path $_ -Destination $Destination -Force }
+        switch ($PsCmdlet.ParameterSetName) {
+            "UseIgnoreFile" {
+                $Sources | ForEach-Object 
+                {
+                    Copy-Item -Path $_ -Destination $Destination -Exclude (Get-IgnoreFile $_) -Force 
+                }
+            }
+            "IgnoreFilter" {
+                $Sources | ForEach-Object 
+                { 
+                    Copy-Item -Path $_ -Destination $Destination -Exclude $IgnoreFilter -Force 
+                }
+            }
+        }
     }
     catch {
         Write-Host "Error while copying files";
@@ -32,4 +47,3 @@ function Copy-Array {
     }
 }
 
-# Get-Process | Sort-Object CPU -Descending | Select-Object -Last 10 | Out-GridView
