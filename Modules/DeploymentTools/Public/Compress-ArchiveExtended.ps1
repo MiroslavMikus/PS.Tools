@@ -3,23 +3,11 @@ Compress-ArchiveExtended -Path $YourDirToCompress -DestinationPath $ZipFileResul
 
 function Compress-ArchiveExtended {
     param (
-        $Path,
-        $DestinationPath
+        [string]$Path,
+        [string]$DestinationPath
     )
 
-    $ignorePath = Join-Path $Path ".zipignore";
-
-    if(Test-Path $ignorePath){
-
-        Write-Host "Ignore file was found"
-
-        $ignoreText = Get-Content $ignorePath;
-
-        Write-Host $ignoreText
-
-    } else {
-        $ignoreText = @();
-    }
+    $ignoreText = Get-IgnoreFile $Path
 
     Get-ChildItem $Path -Exclude $ignoreText | Compress-Archive -DestinationPath $DestinationPath -CompressionLevel Fastest
 }
