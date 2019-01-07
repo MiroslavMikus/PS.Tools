@@ -57,3 +57,8 @@ $hashTable = @{
 }
 
 Sort-Files $hashTable $root
+
+
+$jsonTable = ConvertTo-Json $hashTable
+
+$hsthTable = ConvertFrom-Json $jsonTable
