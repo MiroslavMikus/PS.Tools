@@ -1,4 +1,4 @@
-﻿function Sort-Files([hashtable]$setupHashTable, [string]$rootFolder)
+﻿function Sort-Files([hashtable]$setupHashTable, [string]$rootFolder, [switch]WhatIf)
 {
     Write-Host "Starting with folder '$rootFolder'"
 
@@ -6,8 +6,10 @@
         Write-Host "Processing $_"
     
         if (!(Test-Path -Path $_)){
-            mkdir $_
-            Write-Host "Directory '$_' was created"
+			Write-Host "Directory '$_' was created"
+			if(!WhatIf){
+				mkdir $_
+			}
         }
     
         $destinationFolder = $_;
@@ -22,7 +24,14 @@
            
             $children | ForEach-Object {
                 
-                Copy-Item -Path $_.FullName -Destination (Join-Path $destinationFolder $_.Name)
+				$destination = (Join-Path $destinationFolder $_.Name);
+				
+				Write-Host "Copying $($_.FullName) to $destination"
+				
+				If(!WhatIf){
+					Copy-Item -Path $_.FullName -Destination $destination
+				}
+                
             }
         }
     }
