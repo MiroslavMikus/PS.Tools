@@ -1,6 +1,6 @@
 # Miroslav Mikus 2018/04/26
 # 
-# Pull for each directory in $WorkingDirectory directory
+# Pull for each directory in your WorkingDirectory directory
 # 
 
 function Git-PullWorkingDirectory {
