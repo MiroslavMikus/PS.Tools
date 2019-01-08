@@ -1,4 +1,4 @@
-﻿function Sort-Files([hashtable]$setupHashTable, [string]$rootFolder, [switch]WhatIf)
+﻿function Sort-Files([hashtable]$setupHashTable, [string]$rootFolder, [switch]$WhatIf)
 {
     Write-Host "Starting with folder '$rootFolder'"
 
@@ -7,7 +7,7 @@
     
         if (!(Test-Path -Path $_)){
 			Write-Host "Directory '$_' was created"
-			if(!WhatIf){
+			if(!$WhatIf){
 				mkdir $_
 			}
         }
@@ -16,19 +16,13 @@
 
         foreach ($filter in $hashTable[$_]) {
     
-            $children =  Get-ChildItem -Path $rootFolder -Filter $filter;
-        
-            $count =  $children | Measure-Object | Select-Object Count
-
-            Write-Host "Measure $filter = $count"
-           
-            $children | ForEach-Object {
+            Get-ChildItem -Path $rootFolder -Filter $filter | ForEach-Object {
                 
 				$destination = (Join-Path $destinationFolder $_.Name);
 				
 				Write-Host "Copying $($_.FullName) to $destination"
 				
-				If(!WhatIf){
+				If(!$WhatIf){
 					Copy-Item -Path $_.FullName -Destination $destination
 				}
                 
@@ -59,6 +53,6 @@ $hashTable = @{
 Sort-Files $hashTable $root
 
 
-$jsonTable = ConvertTo-Json $hashTable
+# $jsonTable = ConvertTo-Json $hashTable
 
-$hsthTable = ConvertFrom-Json $jsonTable
+# $hsthTable = ConvertFrom-Json $jsonTable
