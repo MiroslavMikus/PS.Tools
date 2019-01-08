@@ -42,7 +42,7 @@ $Video = Join-Path $Media 'Video'
 $Music = Join-Path $Media 'Music'
 
 $hashTable = @{
-    $Programs=@('*.exe');
+    $Programs= @('*.exe','*.msi');
     $Compressed= @('*.zip', '*.rar', '*.7z');
     $Documents= @('*.doc', '*.docx', '*.xls', '*.xlsx', '*.pdf');
     $Pictures= @('*.jpg', '*.png');
