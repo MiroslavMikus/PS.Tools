@@ -12,7 +12,7 @@
     RootModule        = '.\DeploymentTools.psm1'
     
     # Die Versionsnummer dieses Moduls
-    ModuleVersion     = '1.0'
+    ModuleVersion     = '1.0.0.0'
     
     # Unterstützte PSEditions
     # CompatiblePSEditions = @()
@@ -23,10 +23,10 @@
     Author            = 'Miroslav Mikus'
     
     # Unternehmen oder Hersteller dieses Moduls
-    CompanyName       = 'Unbekannt'
+    CompanyName       = 'Miroslav Mikus'
     
     # Urheberrechtserklärung für dieses Modul
-    Copyright         = '(c) 2018 Miroslav Mikus. Alle Rechte vorbehalten.'
+    Copyright         = '(c) 2019 Miroslav Mikus. Alle Rechte vorbehalten.'
     
     # Beschreibung der von diesem Modul bereitgestellten Funktionen
     # Description = ''
