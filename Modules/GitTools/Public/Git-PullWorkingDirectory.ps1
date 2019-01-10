@@ -43,7 +43,7 @@ function Git-PullWorkingDirectory {
         } else {
             Write-log "git pull --all -> $($d.FullName)" -Path $logPath 
 
-            git pull --all
+            Start-Process -FilePath git -ArgumentList @('pull','--all') -NoNewWindow
         }
     }
     
