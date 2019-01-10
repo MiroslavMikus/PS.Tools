@@ -1,6 +1,10 @@
 ﻿function Sort-Files([hashtable]$setupHashTable, [string]$rootFolder, [switch]$WhatIf, [switch]$Verbose)
 {
-    Write-Host "Starting with folder '$rootFolder'"
+    Write-Host "Start sorting files with root folder '$rootFolder'"
+
+    # calculate progress
+    $filterCount;
+    $setupHashTable.Keys | ForEach-Object { $filterCount += $setupHashTable[$_].Length }
 
     $setupHashTable.Keys | ForEach-Object {
     
@@ -13,8 +17,11 @@
 
         foreach ($filter in $hashTable[$_]) {
 
-            Write-Host "Processing $_ and filter: $filter"
-            
+            # print out progress
+            $current++;
+            $currentProgress =  $current / ($filterCount / 100) ;
+            Write-Progress -Activity "Processing $_ and filter: $filter" -Status "$currentProgress% Complete:" -PercentComplete $currentProgress
+
             $files = Get-ChildItem -Path $rootFolder -Filter $filter;
 
             $files | Copy-Item -Destination (Join-Path $destinationFolder $_.Name) -WhatIf:$WhatIf -Verbose:$Verbose
@@ -43,8 +50,7 @@ $hashTable = @{
 }
 
 clear
-Sort-Files $hashTable $root -Verbose
-
+Sort-Files $hashTable $root
 
 # $jsonTable = ConvertTo-Json $hashTable
 
