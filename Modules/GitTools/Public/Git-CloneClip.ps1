@@ -1,14 +1,24 @@
-# Miroslav Mikus 2018/04/26
-# 
-# Clone git url form clipboard to repository directory
-# 
-
+<# 
+.Synopsis 
+    Clone git url form clipboard to repository directory
+.Description
+    Just copy the git URL to your clipboard and execute this command.
+    I embed this script to my total commander so I can directly clone to the selected directory.
+.PARAMETER RepositoryDirectory 
+   Git repository root folder.
+.PARAMETER UseSleep 
+   Use sleep if you wannt to add some dely before closing the powershell host. 
+   Delay in seconds.
+.EXAMPLE 
+    Copy https://github.com/MiroslavMikus/Course.LibraryManagement.git
+    Git-CloneClip -RepositoryDirectory 'C:\Code'
+#> 
 function Git-CloneClip {
     param (
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()] 
         [string]$RepositoryDirectory,
-        [switch]$UseSleep = $false
+        [int16]$Sleep = 0
     )
 
     $logPath = Get-LogPaht "Git-CloneClip";
@@ -23,10 +33,10 @@ function Git-CloneClip {
     
     git clone $clip
 
-    if ($UseSleep){
+    if ($Sleep -gt 0){
 
-        Write-Host "Done - Script will end in 4 sec";
+        Write-Host "Done - Script will end in $Sleep sec";
         
-        Start-Sleep -s 4
+        Start-Sleep -s $Sleep 
     }
 }
