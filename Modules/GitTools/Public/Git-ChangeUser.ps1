@@ -1,8 +1,17 @@
-# Miroslav Mikus 2018/06/08
-# 
-# This script changes user name or user email for the current repository or global
-# 
-
+<# 
+.Synopsis 
+    This script changes user name or user email for the current or global repository
+.PARAMETER RepositoryDirectory 
+   Git repository root folder.
+.PARAMETER UserName 
+   Desired user name.
+.PARAMETER UserEmail 
+   Desired user email.
+.PARAMETER Global 
+   Switch between local and global config
+.EXAMPLE 
+    Git-ChangeUser -UserName "Miroslav Mikus" -UserEmail "Miroslav.Mikus@outlook.com"
+#> 
 function Git-ChangeUser {
     param (
         [string]$RepositoryDirectory, 

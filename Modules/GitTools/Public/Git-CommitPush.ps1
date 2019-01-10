@@ -1,10 +1,21 @@
-# Miroslav Mikus 2018/03/04
-# 
 # Executes Git status Commit & Push
 # Enter empty message to stop the script
 # 
 
-# Requires -Modules SimpleLogger
+<# 
+.Synopsis 
+    Executes Git status Commit & Push
+.Description
+    Just copy the git URL to your clipboard and execute this command.
+    I embed this script to my total commander so I can directly clone to the selected directory.
+.PARAMETER RepositoryDirectory 
+   Git repository root folder.
+.PARAMETER UseSleep 
+   Desired user name.
+.EXAMPLE 
+    Copy https://github.com/MiroslavMikus/Course.LibraryManagement.git
+    Git-CloneClip -RepositoryDirectory 'C:\Code'
+#> 
 function Git-CommitPush {
 
     param(
