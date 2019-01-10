@@ -1,45 +1,37 @@
-﻿function Sort-Files([hashtable]$setupHashTable, [string]$rootFolder, [switch]$WhatIf)
+﻿function Sort-Files([hashtable]$setupHashTable, [string]$rootFolder, [switch]$WhatIf, [switch]$Verbose)
 {
     Write-Host "Starting with folder '$rootFolder'"
 
     $setupHashTable.Keys | ForEach-Object {
-        Write-Host "Processing $_"
     
-        if (!(Test-Path -Path $_)){
-			Write-Host "Directory '$_' was created"
-			if(!$WhatIf){
-				mkdir $_
-			}
+        if (!(Test-Path -Path $_) -and ($hashTable[$_].Count -gt 0)){
+            Write-Host "Directory '$_' was created"
+            New-Item -ItemType directory -Path $_ -WhatIf:$WhatIf -Verbose:$Verbose
         }
     
         $destinationFolder = $_;
 
         foreach ($filter in $hashTable[$_]) {
-    
-            Get-ChildItem -Path $rootFolder -Filter $filter | ForEach-Object {
-                
-				$destination = (Join-Path $destinationFolder $_.Name);
-				
-				Write-Host "Copying $($_.FullName) to $destination"
-				
-				If(!$WhatIf){
-					Copy-Item -Path $_.FullName -Destination $destination
-				}
-                
-            }
+
+            Write-Host "Processing $_ and filter: $filter"
+            
+            $files = Get-ChildItem -Path $rootFolder -Filter $filter;
+
+            $files | Copy-Item -Destination (Join-Path $destinationFolder $_.Name) -WhatIf:$WhatIf -Verbose:$Verbose
+            
+            $files | Remove-Item -WhatIf:$WhatIf -Confirm:$false -Verbose:$Verbose
         }
     }
 }
 
-$root = 'C:\Users\mmikus\Downloads';
+$root = 'F:\Downloads';
 
 $Programs = Join-Path $root 'Programs'
-$Compressed = Join-Path $root 'Compresed'
+$Compressed = Join-Path $root 'Compressed'
 $Documents = Join-Path $root 'Documents'
-$Media = Join-Path $root 'Media'
-$Pictures = Join-Path $Media 'Pictures'
-$Video = Join-Path $Media 'Video'
-$Music = Join-Path $Media 'Music'
+$Pictures = Join-Path $root 'Pictures'
+$Video = Join-Path $root 'Video'
+$Music = Join-Path $root 'Music'
 
 $hashTable = @{
     $Programs= @('*.exe','*.msi');
@@ -50,7 +42,8 @@ $hashTable = @{
     $Music= @('*.mp3')
 }
 
-Sort-Files $hashTable $root
+clear
+Sort-Files $hashTable $root -Verbose
 
 
 # $jsonTable = ConvertTo-Json $hashTable
