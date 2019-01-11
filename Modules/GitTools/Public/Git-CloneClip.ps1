@@ -6,7 +6,7 @@
     I embed this script to my total commander so I can directly clone to the selected directory.
 .PARAMETER RepositoryDirectory 
    Git repository root folder.
-.PARAMETER UseSleep 
+.PARAMETER Sleep 
    Use sleep if you wannt to add some dely before closing the powershell host. 
    Delay in seconds.
 .EXAMPLE 

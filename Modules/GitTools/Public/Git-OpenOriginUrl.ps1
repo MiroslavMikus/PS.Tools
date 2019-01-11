@@ -1,15 +1,22 @@
-# Miroslav Mikus 2018/05/09
-# 
-# This script will take first link from 'git remote -v' 
-# and open it in selected browser
-# 
+<# 
+.Synopsis 
+    This script will take first link from 'git remote -v' 
+    and open it in selected browser 
+.PARAMETER RepositoryDirectory 
+    Git repository root folder.
+.PARAMETER Sleep 
+    Use sleep if you wannt to add some dely before closing the powershell host. 
+    Delay in seconds.
+.EXAMPLE 
+    Git-OpenOriginUrl 'C:\Code\Powershell'
+#> 
 function Git-OpenOriginUrl {
     param (
             [Parameter(Mandatory=$true)]
             [ValidateNotNullOrEmpty()]  
             [string]$RepositoryDirectory,
             [string]$Browser,
-            [switch]$UseSleep = $false,
+            [int16]$Sleep = 0,
             [switch]$WhatIf
     )
 
@@ -17,9 +24,7 @@ function Git-OpenOriginUrl {
 
     Set-Location $RepositoryDirectory
 
-    $localRemote = (git remote -v)
-
-    $link = SearchLink($localRemote[0]);
+    $link = git config --get remote.origin.url
 
     if ($WhatIf){
 
@@ -43,19 +48,10 @@ function Git-OpenOriginUrl {
         Start-Process -FilePath $Browser -ArgumentList $link
     }
 
-    if($UseSleep){
+    if($Sleep -gt 0){
 
-        Write-Host "Script will end in 4 sec";
+        Write-Host "Script will end in $Sleep sec";
 
-        Start-Sleep -s 4
+        Start-Sleep -s $Sleep
     }
-}
-
-function SearchLink ([string]$data) {
-
-    $startPosition = $data.IndexOf("http");
-    
-    $endPosition = $data.IndexOf("(");
-    
-    return $data.Substring($startPosition, $endPosition - $startPosition).Trim();
 }

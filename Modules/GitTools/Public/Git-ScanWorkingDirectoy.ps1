@@ -1,27 +1,30 @@
-# Miroslav Mikus 2018/03/04
-# 
-# This script loops trought all children folders
-# and creates list git remote URL's.
-# 
-
+<# 
+.Synopsis 
+    This script loops trought all sub-folders
+    and creates list git remote URL's.
+.PARAMETER WorkingDirectory 
+    Your working directory.
+.EXAMPLE 
+    Git-OpenOriginUrl 'C:\Code\Powershell'
+#> 
 function Git-ScanWorkingDirectoy {
     param (
         [Parameter(Mandatory=$true)]
-        [string]$searchDir
+        [string]$WorkingDirectory
     )
 
     $logPath = Get-LogPaht "Git-ScanWorkingDirectoy";
 
-    if(!(Test-Path $searchDir)){
+    if(!(Test-Path $WorkingDirectory)){
     
-        Write-log "Search directory doesnt exist: $searchDir" -Path $logPath -Level Error
+        Write-log "Search directory doesnt exist: $WorkingDirectory" -Path $logPath -Level Error
     }
 
-    Write-log "Search directory: $searchDir" -Path $logPath
+    Write-log "Search directory: $WorkingDirectory" -Path $logPath
 
-    $searchDirObject = Get-Item -Path $searchDir -Verbose # change path to object
+    $WorkingDirectoryObject = Get-Item -Path $WorkingDirectory -Verbose # change path to object
 
-    $folders = Get-ChildItem -Path $searchDirObject.FullName | Where-Object{ $_.PSIsContainer }
+    $folders = Get-ChildItem -Path $WorkingDirectoryObject.FullName | Where-Object{ $_.PSIsContainer }
 
     $urls = @();
 
@@ -33,14 +36,4 @@ function Git-ScanWorkingDirectoy {
     }
 
     return $urls
-}
-
-function Git-ScanWorkingDirectoryToFile {
-    param (
-        [Parameter(Mandatory=$true)]
-        [string]$OutputDirectory,
-        [bool]$addHeader = $true
-        
-    )
-    # todo continue here
 }

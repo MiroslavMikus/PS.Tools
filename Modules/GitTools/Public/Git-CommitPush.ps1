@@ -1,35 +1,29 @@
-# Executes Git status Commit & Push
-# Enter empty message to stop the script
-# 
-
 <# 
 .Synopsis 
-    Executes Git status Commit & Push
-.Description
-    Just copy the git URL to your clipboard and execute this command.
-    I embed this script to my total commander so I can directly clone to the selected directory.
+    Executes Git Status, Commit & Push
+.PARAMETER CommitMessage
+    Your commit message.
 .PARAMETER RepositoryDirectory 
-   Git repository root folder.
-.PARAMETER UseSleep 
-   Desired user name.
+    Git repository root folder.
 .EXAMPLE 
-    Copy https://github.com/MiroslavMikus/Course.LibraryManagement.git
-    Git-CloneClip -RepositoryDirectory 'C:\Code'
+    Git-CommitPush -CommitMessage 'Init commit' -RepositoryDirectory 'C:\Code\Repository'
 #> 
 function Git-CommitPush {
 
     param(
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullOrEmpty()] 
         [string]$CommitMessage,
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()] 
-        [string]$RootFolder
+        [string]$RepositoryDirectory
         )
 
     $logPath = Get-LogPaht "Git-CommitPush";
     
-    Write-log "Starting with repositor folder: $RootFolder" -Path $logPath;
+    Write-log "Starting with repositor folder: $RepositoryDirectory" -Path $logPath;
     
-    Set-Location $RootFolder;
+    Set-Location $RepositoryDirectory;
     
     Write-log "Email $(git config user.email)" -Path $logPath;
     Write-log "Status $(git status)" -Path $logPath;
@@ -37,17 +31,6 @@ function Git-CommitPush {
     Write-Host "######";
     Write-Host "Git add -A; commit; push is following";
     Write-Host "######";
-    
-    # let the user enter the commit message
-    if ($CommitMessage -eq "") {
-
-        $CommitMessage = Read-Host -Prompt "Enter Commit message";
-        
-        # break execution if is the message empty
-        if ($CommitMessage -eq "") {
-            return;
-        }
-    }
     
     git add -A
     

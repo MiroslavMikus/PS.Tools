@@ -1,8 +1,11 @@
-# Miroslav Mikus 2018/04/26
-# 
-# Pull for each directory in your WorkingDirectory directory
-# 
-
+<# 
+.Synopsis 
+    Pull for each directory in your WorkingDirectory directory
+.PARAMETER WorkingDirectory 
+    Your working directory, pull will be executed on all child folders.
+.EXAMPLE 
+    Git-OpenOriginUrl 'C:\Code\Powershell'
+#> 
 function Git-PullWorkingDirectory {
     param (
         [Parameter(Mandatory=$true)]
