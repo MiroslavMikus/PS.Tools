@@ -9,6 +9,9 @@
    Desired user email.
 .PARAMETER Global 
    Switch between local and global config
+.PARAMETER Sleep 
+   Use sleep if you wannt to add some dely before closing the powershell host. 
+   Delay in seconds.
 .EXAMPLE 
     Git-ChangeUser -UserName "Miroslav Mikus" -UserEmail "Miroslav.Mikus@outlook.com"
 #> 
@@ -21,7 +24,8 @@ function Git-ChangeUser {
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()] 
         [string]$UserEmail,
-        [switch]$Global
+        [switch]$Global,
+        [int16]$Sleep = 0
     )
 
     $logPath = Get-LogPaht "Git-ChangeUser";
@@ -33,7 +37,7 @@ function Git-ChangeUser {
         $globalSwitch = "--global";
     } else {
 
-        Write-log "Updating global settings" -Path $logPath 
+        Write-log "Updating local settings" -Path $logPath 
 
         $globalSwitch = "";
     }
@@ -74,6 +78,11 @@ function Git-ChangeUser {
     
         Write-log "User email changed from $oldEmail to $UserEmail" -Path $logPath 
     }
+    
+    if ($Sleep -gt 0){
 
-    Read-Host -Prompt "Done - Press Enter to exit"
+        Write-Host "Done - Script will end in $Sleep sec";
+        
+        Start-Sleep -s $Sleep 
+    }
 }
