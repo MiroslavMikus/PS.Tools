@@ -25,12 +25,7 @@ function Git-CommitPush {
     
     Set-Location $RepositoryDirectory;
     
-    Write-log "Email $(git config user.email)" -Path $logPath;
-    Write-log "Status $(git status)" -Path $logPath;
-    
-    Write-Host "######";
-    Write-Host "Git add -A; commit; push is following";
-    Write-Host "######";
+    Write-log "Name: $(git config user.name); Email: $(git config user.email)" -Path $logPath;
     
     git add -A
     

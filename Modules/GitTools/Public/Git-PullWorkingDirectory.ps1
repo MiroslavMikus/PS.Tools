@@ -3,6 +3,9 @@
     Pull for each directory in your WorkingDirectory directory
 .PARAMETER WorkingDirectory 
     Your working directory, pull will be executed on all child folders.
+.PARAMETER Sleep 
+    Use sleep if you wannt to add some dely before closing the powershell host. 
+    Delay in seconds.
 .EXAMPLE 
     Git-OpenOriginUrl 'C:\Code\Powershell'
 #> 
@@ -11,6 +14,7 @@ function Git-PullWorkingDirectory {
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
         [string]$WorkingDirectory,
+        [int16]$Sleep = 0,
         [switch]$WhatIf
     )
 
@@ -46,11 +50,14 @@ function Git-PullWorkingDirectory {
         } else {
             Write-log "git pull --all -> $($d.FullName)" -Path $logPath 
 
-            Start-Process -FilePath git -ArgumentList @('pull','--all') -NoNewWindow
+            Start-Process -FilePath git -ArgumentList @('pull','--all') -NoNewWindow -Wait
         }
     }
     
-    Write-log "Done" -Path $logPath 
-    
-    Read-Host -Prompt "Done - Press Enter to exit"
+    if($Sleep -gt 0){
+
+        Write-Host "Script will end in $Sleep sec";
+
+        Start-Sleep -s $Sleep
+    }
 }

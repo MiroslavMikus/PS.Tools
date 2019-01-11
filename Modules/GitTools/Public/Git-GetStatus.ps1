@@ -1,3 +1,12 @@
+<# 
+.Synopsis 
+    Prints User Name, Email and git status.
+.PARAMETER CommitMessage
+    Your commit message.
+.PARAMETER RepositoryDirectory 
+    Git repository root folder.
+#> 
+
 function Git-GetStatus {
     param (
         [Parameter(Mandatory=$true)]
