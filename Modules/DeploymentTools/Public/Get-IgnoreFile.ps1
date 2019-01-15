@@ -13,8 +13,15 @@ function Get-IgnoreFile {
 		Write-Host "Ignore file was found: $ignoreFile"
 		
 		$ignoreContent = Get-Content $ignoreFile
-		
-		return ($ignoreContent | Select-Object { if ($_.StartsWith('*')) { return "{0}{1}" -f '\', $_ } else {return $_} })
+
+        foreach ($filter in $ignoreContent) {
+            if ($filter.StartsWith('*')) {
+                        "{0}{1}" -f '\', $filter 
+                    }
+                    else {
+                        $filter
+                    }
+        }
     }
     else {
         Write-Host "Ignore file was not found: $ignoreFile"
@@ -22,10 +29,3 @@ function Get-IgnoreFile {
         return @();
     }
 }
-
-Get-IgnoreFile C:\temp\ps1\
-
-$Path = "C:\temp\ps1\"
-
-$PSDefaultParameterValues['Select-Object:Verbose'] = $false
-$VerbosePreference = "SilentlyContinue"
