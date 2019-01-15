@@ -10,21 +10,12 @@ function Get-IgnoreFile {
     
     if (Test-Path $ignoreFile) {
 		
-		Write-Host "Ignore file was found: $ignoreFile"
+		Write-Verbose "Ignore file was found: $ignoreFile"
 		
-		$ignoreContent = Get-Content $ignoreFile
-
-        foreach ($filter in $ignoreContent) {
-            if ($filter.StartsWith('*')) {
-                        "{0}{1}" -f '\', $filter 
-                    }
-                    else {
-                        $filter
-                    }
-        }
+        return Get-Content $ignoreFile
     }
     else {
-        Write-Host "Ignore file was not found: $ignoreFile"
+        Write-Verbose "Ignore file was not found: $ignoreFile"
         
         return @();
     }
