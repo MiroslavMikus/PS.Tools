@@ -31,23 +31,30 @@
     }
 }
 
-$root = 'F:\Downloads';
+function Get-DefaultSortTable {
+    param (
+        [string]
+        $BasePath
+    )
 
-$Programs = Join-Path $root 'Programs'
-$Compressed = Join-Path $root 'Compressed'
-$Documents = Join-Path $root 'Documents'
-$Pictures = Join-Path $root 'Pictures'
-$Video = Join-Path $root 'Video'
-$Music = Join-Path $root 'Music'
-
-$hashTable = @{
-    $Programs= @('*.exe','*.msi');
-    $Compressed= @('*.zip', '*.rar', '*.7z');
-    $Documents= @('*.doc', '*.docx', '*.xls', '*.xlsx', '*.pdf');
-    $Pictures= @('*.jpg', '*.png');
-    $Video= @('*.mp4', '*.3gp', '*.mkv');
-    $Music= @('*.mp3')
+    $Programs = Join-Path $BasePath 'Programs'
+    $Compressed = Join-Path $BasePath 'Compressed'
+    $Documents = Join-Path $BasePath 'Documents'
+    $Pictures = Join-Path $BasePath 'Pictures'
+    $Video = Join-Path $BasePath 'Video'
+    $Music = Join-Path $BasePath 'Music'
+    
+    return @{
+        $Programs= @('*.exe','*.msi');
+        $Compressed= @('*.zip', '*.rar', '*.7z');
+        $Documents= @('*.doc', '*.docx', '*.xls', '*.xlsx', '*.pdf');
+        $Pictures= @('*.jpg', '*.png');
+        $Video= @('*.mp4', '*.3gp', '*.mkv');
+        $Music= @('*.mp3')
+    }    
 }
+Get-DefaultSortTable 'F:\Downloads';
+
 
 clear
 Sort-Files $hashTable $root
