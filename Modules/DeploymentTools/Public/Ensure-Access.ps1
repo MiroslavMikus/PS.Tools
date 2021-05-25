@@ -22,12 +22,18 @@ function Ensure-PathAccess {
         [switch]$SearchInFullName
     )
 
-    $path = $env:Path.Split(';');
+    $path = $env:Path.Split(';'); 
 
     $result = @();
 
     foreach ($directory in $path) {
 
+        if ( -Not (Test-Path -Path $directory ) )
+        {
+            Write-Host "Path directory [$directory] does not exist!"
+            continue;
+        }
+         
         $children = Get-ChildItem -Path $directory
 
         foreach ($child in $children) {
@@ -45,3 +51,5 @@ function Ensure-PathAccess {
     }
     return $result | Select-Object -uniq
 }
+
+#$result = Ensure-PathAccess "nuget*"

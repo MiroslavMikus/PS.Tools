@@ -13,7 +13,7 @@ function Get-FilteredFiles {
 	if ($InvertFilter) {
 		Write-Verbose "Reverting ignore file"
 		
-		$preProcessFilter = Format-Filter $IgnoreFilter
+		$preProcessFilter = Format-IgnoreFilter $IgnoreFilter
 
 		Get-ChildItem $Path |
 			Foreach-Object {

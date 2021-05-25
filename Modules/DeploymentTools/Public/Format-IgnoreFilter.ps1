@@ -1,4 +1,4 @@
-function Format-Filter{
+function Format-IgnoreFilter{
     param (
 		[ValidateNotNullOrEmpty()]
         [string[]]$FilterContent
